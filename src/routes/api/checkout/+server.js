@@ -1,6 +1,7 @@
 import { json } from "@sveltejs/kit"
 import Stripe from "stripe"
 import { STRIPE_API_KEY, PRICE_ID } from "$env/static/private";
+import { PUBLIC_FRONTEND_URL } from "$env/static/public"
 
 const stripe = new Stripe(STRIPE_API_KEY)
 
@@ -14,8 +15,8 @@ export async function POST() {
             },
         ],
         mode: "subscription",
-        success_url: "http://localhost:5173/checkout/success",
-        cancel_url: "http://localhost:5173/checkout/cancel",
+        success_url: `${PUBLIC_FRONTEND_URL}/checkout/success`,
+        cancel_url: `${PUBLIC_FRONTEND_URL}/checkout/cancel`,
     })
     return json({ session: session})
 }
